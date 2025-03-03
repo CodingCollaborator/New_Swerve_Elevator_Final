@@ -71,7 +71,7 @@ public class Elevator extends SubsystemBase
     public void setElevatorSpeed() 
     {
         double speed = this.getTargetElevatorSpeed();
-        elevatorMotor.set(speed*0.25);//Stop
+        elevatorMotor.set(speed*0.5);//Stop
     }
     public void emergencyStop()
     {

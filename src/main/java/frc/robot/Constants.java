@@ -8,6 +8,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralIntake;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Flipper;
 
 import static edu.wpi.first.units.Units.*;
 
@@ -28,4 +29,6 @@ public final class Constants //Constants that must be accessed in multiple class
     public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     public static final CoralIntake coralIntake = new CoralIntake();
+
+    public static final Flipper flipper = new Flipper();
 }

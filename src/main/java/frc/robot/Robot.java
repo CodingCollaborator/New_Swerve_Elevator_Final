@@ -27,11 +27,17 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Encoder Position", Constants.elevator.getElevatorPosition());
     SmartDashboard.putNumber("Encoder Velocity:", Constants.elevator.getTargetElevatorSpeed());
     SmartDashboard.putNumber("Desired Height:", Constants.elevator.getDesiredHeight());
-    if(Constants.elevator.getElevatorPosition()>220)
+    if(Constants.elevator.getElevatorPosition()>240)
     {
       Constants.elevator.emergencyStop();
     }
-
+    SmartDashboard.putNumber("Flipper Angle", Constants.flipper.getFlipperAngle());
+    SmartDashboard.putNumber("Flipper Velocity:", Constants.flipper.getTargetFlipperSpeed());
+    SmartDashboard.putNumber("Desired Angle:", Constants.flipper.getDesiredAngle());
+    if(Constants.flipper.getFlipperAngle()>15)
+    {
+      Constants.flipper.emergencyStop();
+    }
 
   }
 
@@ -70,6 +76,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic()
   {
     Constants.elevator.setElevatorSpeed();
+    Constants.flipper.setFlipperSpeed();
   }
 
   @Override

@@ -72,10 +72,13 @@ public class RobotContainer {
         joystick0.y().onTrue(Constants.elevator.setHeight(134.63));        //  LevelThree
         joystick0.b().onTrue(Constants.elevator.setHeight(210));           //  LevelFour
 
-        joystick1.a().onTrue(Constants.coralIntake.pullCoralIn()).onFalse(Constants.coralIntake.hold());//On true, button pressed, calls method.
-        joystick1.b().onTrue(Constants.coralIntake.pushCoralOut()).onFalse(Constants.coralIntake.hold());
-        joystick1.y().onTrue(Constants.coralIntake.hold()).onFalse(Constants.coralIntake.stopIntake());
-        joystick1.x().onTrue(Constants.coralIntake.stopIntake()).onFalse(Constants.coralIntake.hold());
+        joystick1.x().onTrue(Constants.coralIntake.pullCoralIn()).onFalse(Constants.coralIntake.hold());//On true, button pressed, calls method.
+        joystick1.y().onTrue(Constants.coralIntake.pushCoralOut()).onFalse(Constants.coralIntake.hold());
+        //joystick1.y().onTrue(Constants.coralIntake.pushCoralOut())
+        //joystick1.x().onTrue(Constants.coralIntake.stopIntake()).onFalse(Constants.coralIntake.hold());
+
+        joystick1.a().onTrue(Constants.flipper.setDesiredAngle(0));
+        joystick1.b().onTrue(Constants.flipper.setDesiredAngle(10));
 
 
         Constants.drivetrain.registerTelemetry(logger::telemeterize);

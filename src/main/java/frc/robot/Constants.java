@@ -31,4 +31,7 @@ public final class Constants //Constants that must be accessed in multiple class
     public static final CoralIntake coralIntake = new CoralIntake();
 
     public static final Flipper flipper = new Flipper();
+
+    public static boolean coralMode = true;
+
 }

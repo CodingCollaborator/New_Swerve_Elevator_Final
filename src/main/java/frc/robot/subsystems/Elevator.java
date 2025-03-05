@@ -51,31 +51,40 @@ public class Elevator extends SubsystemBase
         elevatorController.setTolerance(.1);
     }
 
-    public double getTargetElevatorSpeed() {
-       
-        return MathUtil.clamp(elevatorController.calculate(this.getElevatorPosition() ), -1, 1 );
-    }
-    public InstantCommand setHeight(double desiredHeight)
+    public double getElevatorPosition() 
     {
-        return new InstantCommand(() -> elevatorController.setSetpoint(desiredHeight));
+        return elevatorMotor.getEncoder().getPosition();
     }
     public double getDesiredHeight()
     {
         return elevatorController.getSetpoint();
-    }
-
-    public double getElevatorPosition() 
-    {
-        return elevatorMotor.getEncoder().getPosition();
     }
     public void setElevatorSpeed() 
     {
         double speed = this.getTargetElevatorSpeed();
         elevatorMotor.set(speed*0.5);//Stop
     }
+    public double getTargetElevatorSpeed() {
+       
+        return MathUtil.clamp(elevatorController.calculate(this.getElevatorPosition() ), -1, 1 );
+    }
     public void emergencyStop()
     {
         elevatorMotor.disable();
+    }
+    public InstantCommand setCoralHeight(double desiredHeight, boolean coralMode)
+    {
+        if(coralMode)
+        return new InstantCommand(() -> elevatorController.setSetpoint(desiredHeight));
+        else
+        return new InstantCommand();
+    }
+    public InstantCommand setAlgaeHeight(double desiredHeight, boolean coralMode)
+    {
+        if(coralMode)
+        return new InstantCommand();
+        else
+        return new InstantCommand(() -> elevatorController.setSetpoint(desiredHeight));
     }
 
 }

@@ -21,6 +21,7 @@ import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.CoralIntake;
 import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 public class RobotContainer {
 
@@ -28,6 +29,7 @@ public class RobotContainer {
 
     private final CommandXboxController joystick0 = new CommandXboxController(0); //#This Joystick Controls The Driving(Will Also Control Elevator)
     private final CommandXboxController joystick1 = new CommandXboxController(1);//#This Joystick Controls The Intake System
+    private final VideoCamera m_videoCamera = new VideoCamera();;
 
 
     private int alliance; //for Auto
@@ -53,27 +55,22 @@ public class RobotContainer {
             //VERY IMPORTANT, REMEMBER TO SET TO FULL SPEED FOR COMPETITION.
 
         );
-
-       
-
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
         joystick0.back().and(joystick0.y()).whileTrue(Constants.drivetrain.sysIdDynamic(Direction.kForward));
         joystick0.back().and(joystick0.x()).whileTrue(Constants.drivetrain.sysIdDynamic(Direction.kReverse));
         joystick0.start().and(joystick0.y()).whileTrue(Constants.drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick0.start().and(joystick0.x()).whileTrue(Constants.drivetrain.sysIdQuasistatic(Direction.kReverse));
-
-        // reset the field-centric heading on left bumper press
         joystick0.leftBumper().onTrue(Constants.drivetrain.runOnce(() -> Constants.drivetrain.seedFieldCentric()));
-        //#Left Bumper Reverses Forward and Backward)
 
-        joystick0.a().onTrue(Constants.elevator.setHeight(0));             //  LevelOne/Reset/Feeder
-        joystick0.x().onTrue(Constants.elevator.setHeight(40));            //  LevelTwo
-        joystick0.y().onTrue(Constants.elevator.setHeight(134.63));        //  LevelThree
-        joystick0.b().onTrue(Constants.elevator.setHeight(210));           //  LevelFour
 
-        joystick1.x().onTrue(Constants.coralIntake.pullCoralIn()).onFalse(Constants.coralIntake.hold());//On true, button pressed, calls method.
-        joystick1.y().onTrue(Constants.coralIntake.pushCoralOut()).onFalse(Constants.coralIntake.hold());
+        joystick1.a().onTrue(Constants.elevator.setCoralHeight(0, Constants.coralMode));             //  LevelOne/Reset/Feeder
+        joystick1.x().onTrue(Constants.elevator.setCoralHeight(40, Constants.coralMode));            //  LevelTwo
+        joystick1.y().onTrue(Constants.elevator.setCoralHeight(134.63, Constants.coralMode));        //  LevelThree
+        joystick1.b().onTrue(Constants.elevator.setCoralHeight(210, Constants.coralMode));           //  LevelFour
+
+        joystick1.leftBumper().onTrue(Constants.coralIntake.pullCoralIn()).onFalse(Constants.coralIntake.hold());//On true, button pressed, calls method.
+        joystick1.rightBumper().onTrue(Constants.coralIntake.pushCoralOut()).onFalse(Constants.coralIntake.hold());
         //joystick1.y().onTrue(Constants.coralIntake.pushCoralOut())
         //joystick1.x().onTrue(Constants.coralIntake.stopIntake()).onFalse(Constants.coralIntake.hold());
 
